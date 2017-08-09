@@ -1,0 +1,9 @@
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\bin\Debug\netcoreapp1.1\Ordbog.deps.json
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\bin\Debug\netcoreapp1.1\Ordbog.runtimeconfig.json
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\bin\Debug\netcoreapp1.1\Ordbog.runtimeconfig.dev.json
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\bin\Debug\netcoreapp1.1\Ordbog.dll
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\bin\Debug\netcoreapp1.1\Ordbog.pdb
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\obj\Debug\netcoreapp1.1\Ordbog.csprojResolveAssemblyReference.cache
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\obj\Debug\netcoreapp1.1\Ordbog.AssemblyInfo.cs
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\obj\Debug\netcoreapp1.1\Ordbog.dll
+c:\users\inter\onedrive\documents\visual studio 2017\Projects\Ordbog\Ordbog\obj\Debug\netcoreapp1.1\Ordbog.pdb

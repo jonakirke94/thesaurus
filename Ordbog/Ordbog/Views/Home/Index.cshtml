@@ -1,0 +1,194 @@
+﻿@model Ordbog.Models.WordViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<script src="~/js/site.min.js"></script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Search bar -->
+            <div class="search-wrapper">
+                <form asp-controller="Home" asp-action="Index" method="get">
+                    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+                    <div>
+                        <div class="search-container">
+                            <input type="search" id="field" placeholder="Search..." name="query"/>
+                            <button class="icon" id="searchIcon" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Search bar -->
+        </div>
+        <div class="col-md-5">
+            <!-- Current word + Category -->
+            <div id="word-container">
+                @if (Model.Blocks.Any() && !string.IsNullOrEmpty(Model.BaseWord))
+                {
+                    <div id="info">
+                        <p>@Model.Blocks[Model.CurrentIndex].Category</p>
+                        <p> ~ </p>
+                        <p>@Model.BaseWord</p>
+                    </div>
+                }
+            </div>
+            <!-- Current word + Category -->
+        </div>
+        <div class="col-md-1">
+            <!-- Country flags-->
+            <div id="country-con">
+                <ul>
+                    <li>
+                        <img src="~/images/uk24.png" alt="united king"/>
+                    </li>
+                </ul>
+            </div>
+            <!-- Country flags-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Suggested lemmas -->
+            @if (Model.Lemmas.Any())
+            {
+                <div class="lemma-headline">
+                    <h2>
+                        No entries found for <i class="fa fa-caret-right" aria-hidden="true"></i> @Model.BaseWord <i class="fa fa-caret-left" aria-hidden="true"></i> <br/> <span margin-top: 100px;>Did you mean:</span>
+                    </h2>
+                </div>
+                <div class="lemma-wrapper">
+                    @foreach (var item in Model.Lemmas)
+                    {
+                        <div style="float: left">
+                            <form asp-controller="Home" asp-action="Index" method="get">
+                                <input hidden="hidden" value="@item" name="query" type="hidden"/>
+                                <button class="btn-syn" type="submit">@Html.DisplayFor(modelItem => item)</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.ErrorMsg))
+            {
+                <div style="margin-left: 10%">
+                    <h3>@Model.ErrorMsg</h3>
+                </div>
+            }
+            <!-- Suggested lemmas -->
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+            <!-- The Carousel -->
+
+            <div class="carousel-container">
+                <div>
+                    @if (Model.Blocks.Count > 1)
+
+                    {
+                        <p>
+                           <span style="font-style: italic"> @Model.Blocks.Count </span> senses of <span style="font-style: italic; font-weight: bold;"> @Model.BaseWord </span> was found
+                        </p>
+                        <div class="slider-for">
+
+                            @for (var i = 0; i < Model.Blocks.Count; i++)
+                            {
+                                <div>@i</div>
+                            }
+                        </div>
+                        <div class="slider-nav">
+
+                            @for (var i = 0; i < Model.Blocks.Count; i++)
+                            {
+                                <form asp-controller="Home" asp-action="Index" method="get">
+                                    <input hidden="hidden" value="@Model.BaseWord" name="query" type="hidden"/>
+                                    <input hidden="hidden" value="@i" name="id" type="hidden"/>
+                                    <button class="carosel-item" type="submit">
+                                        <span style="font-style: italic">@Model.Blocks[i].Category</span> <br/>@Model.Blocks[i].Example</button>
+                                </form>
+                            }
+                        </div>
+                    }
+                    <!--this is used to parse the current value to the initialSlide method in JS-->
+                    <input id="init-slide" value="@Model.CurrentIndex" style="visibility: hidden"/>
+
+
+                </div>
+            </div>
+            <!-- The Carousel -->
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- synonym-buttons and sub-synonym-buttons-->
+            <div class="syn-container">
+                @if (Model.Blocks.Any())
+                {
+                    <div id="signature">
+                        <div></div>
+                        <div>strong</div>
+                        <div></div>
+                        <div>weak</div>
+                    </div>
+
+                    foreach (var citem in Model.Blocks[Model.CurrentIndex].Synonyms)
+                    {
+                        <div style="float: left">
+                            <form asp-controller="Home" asp-action="Index" method="get">
+                                <input hidden="hidden" value="@citem" name="query" type="hidden"/>
+                                <button class="btn-syn" type="submit">@Html.DisplayFor(modelItem => citem)</button>
+                            </form>
+                        </div>
+                    }
+                    foreach (var citem in Model.Blocks[Model.CurrentIndex].SubSynonyms)
+                    {
+                        <div style="float: left">
+                            <form asp-controller="Home" asp-action="Index" method="get">
+                                <input hidden="hidden" value="@citem" name="query" type="hidden"/>
+                                <button class="btn-sub-syn" type="submit">@Html.DisplayFor(modelItem => citem)</button>
+                            </form>
+                        </div>
+                    }
+                }
+
+
+            </div>
+            <!-- synonym-buttons and sub-synonym-buttons-->
+        </div>
+
+        <div class="col-md-4">
+            <!-- Antonym and example go here-->
+            <div class="example-container">
+
+                @if (Model.Blocks.Any())
+                {
+                    <h2 style="margin-left: 70px;"> Example </h2>
+                    <p> @Model.Blocks[Model.CurrentIndex].Example</p>
+                    <hr/>
+                    <h2 style="margin-left: 70px;"> Antonym </h2>
+                    <p> @Model.Blocks[Model.CurrentIndex].Antonym</p>
+                    <hr/>
+                }
+            </div>
+
+
+        </div>
+        <!-- Antonym and example go here-->
+    </div>
+</div>
